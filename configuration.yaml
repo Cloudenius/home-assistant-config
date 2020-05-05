@@ -1,0 +1,49 @@
+# Integrations without configurations
+config:
+conversation:
+discovery:
+history:
+ios:
+logbook:
+map:
+mobile_app:
+person:
+sun:
+system_health:
+updater:
+wake_on_lan:
+
+# Split the integrations with configurations into separate YAML files
+automation: !include integrations/automation.yaml
+# azuredns: !include integrations/azuredns.yaml
+# cloud: !include integrations/cloud.yaml
+device_tracker: !include integrations/device_tracker.yaml
+frontend: !include integrations/frontend.yaml
+group: !include integrations/group.yaml
+homeassistant: !include integrations/homeassistant.yaml
+# homekit: !include integrations/homekit.yaml
+http: !include integrations/http.yaml
+influxdb: !include integrations/influxdb.yaml
+input_boolean: !include integrations/input_boolean.yaml
+input_datetime: !include integrations/input_datetime.yaml
+input_select: !include integrations/input_select.yaml
+logger: !include integrations/logger.yaml
+lovelace: !include integrations/lovelace.yaml
+media_player: !include integrations/media_player.yaml
+nissan_leaf: !include integrations/nissan_leaf.yaml
+notify: !include integrations/notify.yaml
+plant: !include integrations/plant.yaml
+recorder: !include integrations/recorder.yaml
+remote: !include integrations/remote.yaml
+rest_command: !include integrations/rest_command.yaml
+sensor: !include integrations/sensor.yaml
+# speedtestdotnet: !include integrations/speedtestdotnet.yaml
+spotify: !include integrations/spotify.yaml
+switch: !include integrations/switch.yaml
+tts: !include integrations/tts.yaml
+utility_meter: !include integrations/utility_meter.yaml
+vacuum: !include integrations/vacuum.yaml
+weather: !include integrations/weather.yaml
+webostv: !include integrations/webostv.yaml
+withings: !include integrations/withings.yaml
+zone: !include integrations/zone.yaml
