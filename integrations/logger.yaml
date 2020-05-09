@@ -1,0 +1,10 @@
+default: info
+logs:
+  homeassistant.components.http.ban: warning
+  # homeassistant.components.nissan_leaf: warning
+  # custom_components.azuredns: warning
+  # homeassistant.components.updater: debug
+  # homeassistant.components.mqtt: debug
+  # homeassistant.components.automation: info
+  # homeassistant.core: debug
+  # asyncio: debug

@@ -1,0 +1,19 @@
+- platform: sendgrid
+  name: SendGrid
+  api_key: !secret notify_sendgrid_api
+  sender: !secret notify_sendgrid_sender
+  recipient: !secret notify_sendgrid_recipient
+- platform: clicksend
+  name: ClickSend
+  username: !secret notify_clicksend_username
+  api_key: !secret notify_clicksend_api
+  recipient: !secret notify_clicksend_recipient
+  sender: !secret notify_clicksend_sender
+- platform: msteams
+  name: MicrosoftTeams
+  url: !secret msteams_url
+# - platform: html5
+#   name: HTML5
+#   vapid_pub_key: !secret html5_public_key
+#   vapid_prv_key: !secret html5_private_key
+#   vapid_email: !secret html5_email

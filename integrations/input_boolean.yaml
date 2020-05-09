@@ -1,0 +1,66 @@
+# Music
+play_music_at_home:
+  name: Play Music
+  initial: off
+play_music_in_living_room:
+  name: Play Music in Living Room
+  initial: off
+stop_music_in_living_room:
+  name: Stop Music in Living Room
+  initial: off
+
+# Awake
+awake:
+  name: Awake
+
+# Wake up
+wakeup_enabled:
+  name: "Wake-up alarm scheduled"
+  icon: mdi:theme-light-dark
+wakeup_weekend:
+  name: "Enable wake-up lights on weekends"
+  icon: mdi:calendar-blank
+
+# Backup trigger
+backup_trigger:
+  name: "Backup Home Assistant now"
+  initial: off
+
+# Vacuum cleaner
+vacuum_clean_enabled:
+  name: "Robot Vacuum Scheduled Clean"
+  icon: mdi:robot-vacuum
+vacuum_clean_weekend:
+  name: "Enable Vacuum Cleaning on weekends"
+  icon: mdi:calendar-blank
+
+# Notifications
+plant_sensor1_notification:
+  name: "Enable notifications for Plant Sensor 1"
+  icon: mdi:bell-ring
+plant_sensor2_notification:
+  name: "Enable notifications for Plant Sensor 2"
+  icon: mdi:bell-ring
+plant_sensor3_notification:
+  name: "Enable notifications for Plant Sensor 3"
+  icon: mdi:bell-ring
+washing_machine_reminder_notification:
+  name: "Enable notifications for Washing Machine reminders"
+  icon: mdi:bell-ring
+awake_turn_off_notification:
+  name: "Enable notifications for Awake turn off reminders"
+  icon: mdi:bell-ring
+memory_warning_notification:
+  name: "Enable notifications for Memory warnings"
+  icon: mdi:bell-ring
+vacuum_clean_notification:
+  name: "Enable notifications for Vacuum Cleaner"
+  icon: mdi:bell-ring
+washing_room_humidity_notification:
+  name: "Enable notifications for Washing Room Humidity"
+  icon: mdi:bell-ring
+
+# Dummy booleans
+light_living_room_automation_pause:
+  name: "Pause Living Room Light Automation for 60 minutes"
+  icon: mdi:lightbulb

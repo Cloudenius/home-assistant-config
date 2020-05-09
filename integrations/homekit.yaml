@@ -1,0 +1,11 @@
+# filter:
+#   include_entities:
+#     - input_boolean.awake
+#     - input_boolean.play_music_in_living_room
+#     - input_boolean.stop_music_in_living_room
+#     - light.bedroom
+#     - light.living_room
+#     - light.bathroom
+#     - light.hall
+#     - light.kitchen
+#     - light.toilet

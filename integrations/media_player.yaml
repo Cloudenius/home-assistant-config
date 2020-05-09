@@ -1,0 +1,3 @@
+platform: denonavr
+host: !secret denon_avr_host
+name: Living Room Receiver HTTP

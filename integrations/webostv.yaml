@@ -1,0 +1,11 @@
+host: !secret media_player_webostv_host
+name: Living Room TV
+turn_on_action:
+  service: wake_on_lan.send_magic_packet
+  data:
+    mac: !secret media_player_webostv_mac
+customize:
+  sources:
+    - livetv
+    - youtube
+    - netflix

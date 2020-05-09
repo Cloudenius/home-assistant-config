@@ -19,7 +19,6 @@ automation: !include integrations/automation.yaml
 # cloud: !include integrations/cloud.yaml
 device_tracker: !include integrations/device_tracker.yaml
 frontend: !include integrations/frontend.yaml
-group: !include integrations/group.yaml
 homeassistant: !include integrations/homeassistant.yaml
 # homekit: !include integrations/homekit.yaml
 http: !include integrations/http.yaml

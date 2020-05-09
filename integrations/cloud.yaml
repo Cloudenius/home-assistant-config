@@ -1,0 +1,21 @@
+alexa:
+  filter:
+    include_entities:
+      - media_player.living_room_tv
+      - media_player.living_room_receiver
+      - input_boolean.play_music_at_home
+      - input_boolean.play_music_in_living_room
+      - input_boolean.pause_music_at_home
+      - input_boolean.stop_music_in_living_room
+      - input_boolean.awake
+    exclude_domains:
+      - script
+      - automation
+      - switch
+      - light
+      - group
+      - media_player
+      - sensor
+  entity_config:
+    media_player.living_room_receiver:
+      display_categories: SPEAKER

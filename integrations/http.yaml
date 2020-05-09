@@ -1,0 +1,7 @@
+base_url: !secret base_url
+ssl_certificate: /ssl/fullchain.pem
+ssl_key: /ssl/privkey.pem
+
+# Ban IP addresses after 3 failed login attempts
+ip_ban_enabled: True
+login_attempts_threshold: 3

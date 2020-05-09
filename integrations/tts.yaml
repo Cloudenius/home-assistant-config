@@ -1,0 +1,8 @@
+- platform: google_translate
+  service_name: google_say
+
+# - platform: microsoft
+#   api_key: !secret tts_microsoft_api
+#   language: nl-nl
+#   gender: Female
+#   region: westeurope

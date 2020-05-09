@@ -1,0 +1,11 @@
+# Temporary files
+tmp*
+
+# TTS audio files
+tts/*.mp3
+
+# Home Assistant log file
+home-assistant.log
+
+# Restore state
+core.restore_state

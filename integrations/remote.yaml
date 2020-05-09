@@ -1,0 +1,4 @@
+- platform: harmony
+  name: HarmonyHub
+  host: !secret harmonyhub_host
+  activity: "Watch TV"

@@ -1,0 +1,5 @@
+- platform: upc_connect
+  host: !secret device_tracker_upc_connect_host
+  password: !secret device_tracker_upc_connect_password
+  interval_seconds: 5
+  track_new_devices: true

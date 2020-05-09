@@ -1,0 +1,7 @@
+domain: !secret azuredns_domain
+host: !secret azuredns_host
+tenant: !secret azuredns_tenant
+subscriptionid: !secret azuredns_subscriptionid
+resourcegroupname: !secret azuredns_resourcegroupname
+clientid: !secret azuredns_clientid
+clientsecret: !secret azuredns_clientsecret

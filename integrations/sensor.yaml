@@ -1,0 +1,313 @@
+#
+# Sensors
+#
+
+# Home Assistant Version
+- platform: version
+
+# Buienradar
+- platform: buienradar
+  monitored_conditions:
+    # Current conditions
+    - symbol
+    - windspeed
+    # Forecasted data
+    - symbol_1d
+    - symbol_2d
+    - temperature_1d
+    - temperature_2d
+    - rainchance_1d
+    - rainchance_2d
+    - rain_1d
+    - rain_2d
+    - sunchance_1d
+    - sunchance_2d
+
+# Dark Sky
+- platform: darksky
+  api_key: !secret darksky_api
+  forecast:
+    - 0
+    - 1
+    - 2
+    - 3
+    - 4
+  monitored_conditions:
+    - summary
+    - hourly_summary
+    - icon
+    - temperature
+    - temperature_high
+    - temperature_low
+    - uv_index
+    - sunrise_time
+    - sunset_time
+    - wind_speed
+    - wind_bearing
+    - cloud_cover
+    - humidity
+    - visibility
+
+# Waze
+# - platform: waze_travel_time
+#   name: Waze - Home to Client
+#   origin: zone.home
+#   destination: zone.client
+#   region: 'EU'
+
+# - platform: waze_travel_time
+#   name: Waze - Client to Home
+#   origin: zone.client
+#   destination: zone.home
+#   region: 'EU'
+
+- platform: waze_travel_time
+  name: Waze - Home to Office
+  origin: zone.home
+  destination: zone.office
+  region: 'EU'
+
+- platform: waze_travel_time
+  name: Waze - Office to Home
+  origin: zone.office
+  destination: zone.home
+  region: 'EU'
+
+- platform: waze_travel_time
+  name: Waze - Home to Microsoft office
+  origin: zone.home
+  destination: zone.microsoft_office
+  region: 'EU'
+
+- platform: waze_travel_time
+  name: Waze - Microsoft office to Home
+  origin: zone.microsoft_office
+  destination: zone.home
+  region: 'EU'
+
+# Raspberry Statistics
+- platform: command_line
+  name: CPU temperature
+  command: "cat /sys/class/thermal/thermal_zone0/temp"
+  unit_of_measurement: "°C"
+  value_template: '{{ value | multiply(0.001) | round(1) }}'
+
+- platform: systemmonitor
+  resources:
+    - type: disk_use_percent
+      arg: /
+    - type: memory_use_percent
+    - type: swap_use_percent
+    - type: processor_use
+    - type: network_in
+      arg: enp3s0
+    - type: network_out
+      arg: enp3s0
+
+# Xiaomi Mi Flora Plant Sensor
+- platform: miflora
+  name: Plant 1
+  mac: !secret xiaomi_plant_sensor1
+  scan_interval: 3600
+  monitored_conditions:
+  - moisture
+  - light
+  - temperature
+  - conductivity
+  - battery
+
+- platform: miflora
+  name: Plant 2
+  mac: !secret xiaomi_plant_sensor2
+  scan_interval: 3600
+  monitored_conditions:
+  - moisture
+  - light
+  - temperature
+  - conductivity
+  - battery
+
+- platform: miflora
+  name: Plant 3
+  mac: !secret xiaomi_plant_sensor3
+  scan_interval: 3600
+  monitored_conditions:
+  - moisture
+  - light
+  - temperature
+  - conductivity
+  - battery
+
+# TP-Link Smart Home - Power Outlets
+- platform: template
+  sensors:
+    # Plug 1 - Ready changed from 6 to 4 at 2020-02-01 as it triggered too many false positives
+    washing_machine_status:
+      friendly_name_template: "{{ states.switch.washing_machine.name}} Status"
+      value_template: >-
+          {% if (state_attr('switch.washing_machine', 'current_power_w')|float <= 1) %}
+            Off
+          {% elif (state_attr('switch.washing_machine', 'current_power_w')|float <= 4) %}
+            On - Washing Machine Ready
+          {% elif (state_attr('switch.washing_machine', 'current_power_w')|float|round == 6) %}
+            On - Dryer Ready
+          {% elif (state_attr('switch.washing_machine', 'current_power_w')|float|round >= 650) %}
+            On - Drying
+          {% else %}
+            On - Washing
+          {% endif %}
+    washing_machine_amps:
+      friendly_name_template: "{{ states.switch.washing_machine.name}} Current"
+      value_template: '{{ states.switch.washing_machine.attributes["current_a"] | float }}'
+      unit_of_measurement: 'A'
+      device_class: power
+    washing_machine_watts:
+      friendly_name_template: "{{ states.switch.washing_machine.name}} Current Consumption"
+      value_template: '{{ states.switch.washing_machine.attributes["current_power_w"] | float }}'
+      unit_of_measurement: 'W'
+      device_class: power
+    washing_machine_total_kwh:
+      friendly_name_template: "{{ states.switch.washing_machine.name}} Total Consumption"
+      value_template: '{{ states.switch.washing_machine.attributes["total_energy_kwh"] | float }}'
+      unit_of_measurement: 'kWh'
+      device_class: power
+    washing_machine_volts:
+      friendly_name_template: "{{ states.switch.washing_machine.name}} Voltage"
+      value_template: '{{ states.switch.washing_machine.attributes["voltage"] | float }}'
+      unit_of_measurement: 'V'
+      device_class: power
+    washing_machine_today_kwh:
+      friendly_name_template: "{{ states.switch.washing_machine.name}} Last 24H Consumption"
+      value_template: '{{ states.switch.washing_machine.attributes["today_energy_kwh"] | float }}'
+      unit_of_measurement: 'kWh'
+      device_class: power
+    washing_machine_today_euro:
+      friendly_name_template: "{{ states.switch.washing_machine.name}} Last 24H Consumption in EUR"
+      value_template: "{{ float(states('sensor.energytariff_nl_low')) | multiply(float(states.sensor.washing_machine_today_kwh.state)) | round(2) }}"
+      unit_of_measurement: Euro
+    # Plug 2
+    portable_smart_plug_status:
+      friendly_name_template: "{{ states.switch.portable_smart_plug.name}} Status"
+      value_template: >-
+          {% if (state_attr('switch.portable_smart_plug', 'current_power_w')|float <= 1) %}
+            Off
+          {% else %}
+            On
+          {% endif %}
+    portable_smart_plug_amps:
+      friendly_name_template: "{{ states.switch.portable_smart_plug.name}} Current"
+      value_template: '{{ states.switch.portable_smart_plug.attributes["current_a"] | float }}'
+      unit_of_measurement: 'A'
+      device_class: power
+    portable_smart_plug_watts:
+      friendly_name_template: "{{ states.switch.portable_smart_plug.name}} Current Consumption"
+      value_template: '{{ states.switch.portable_smart_plug.attributes["current_power_w"] | float }}'
+      unit_of_measurement: 'W'
+      device_class: power
+    portable_smart_plug_total_kwh:
+      friendly_name_template: "{{ states.switch.portable_smart_plug.name}} Total Consumption"
+      value_template: '{{ states.switch.portable_smart_plug.attributes["total_energy_kwh"] | float }}'
+      unit_of_measurement: 'kWh'
+      device_class: power
+    portable_smart_plug_volts:
+      friendly_name_template: "{{ states.switch.portable_smart_plug.name}} Voltage"
+      value_template: '{{ states.switch.portable_smart_plug.attributes["voltage"] | float }}'
+      unit_of_measurement: 'V'
+      device_class: power
+    portable_smart_plug_today_kwh:
+      friendly_name_template: "{{ states.switch.portable_smart_plug.name}} Last 24H Consumption"
+      value_template: '{{ states.switch.portable_smart_plug.attributes["today_energy_kwh"] | float }}'
+      unit_of_measurement: 'kWh'
+      device_class: power
+    portable_smart_plug_today_euro:
+      friendly_name_template: "{{ states.switch.portable_smart_plug.name}} Last 24H Consumption in EUR"
+      value_template: "{{ float(states('sensor.energytariff_nl_low')) | multiply(float(states.sensor.portable_smart_plug_today_kwh.state)) | round(2) }}"
+      unit_of_measurement: Euro
+
+# Xiaomi Roborock Vacuum Cleaner
+- platform: template
+  sensors:
+    xiaomi_vacuum_cleaner_battery:
+      friendly_name: 'Xiaomi Vacuum Cleaner Battery'
+      value_template: "{{state_attr('vacuum.xiaomi_vacuum_cleaner', 'battery_level')}}"
+      unit_of_measurement: '%'
+      device_class: battery
+    xiaomi_vacuum_cleaner_lifetime_cleaned_area:
+      friendly_name: 'Lifetime Cleaned Area'
+      value_template: "{{state_attr('vacuum.xiaomi_vacuum_cleaner', 'total_cleaned_area')}}"
+      unit_of_measurement: ㎡
+    xiaomi_vacuum_cleaner_lifetime_cleaning_time:
+      friendly_name: 'Lifetime Cleaning Time'
+      value_template: "{{(state_attr('vacuum.xiaomi_vacuum_cleaner', 'total_cleaning_time') / 60)|round(1, 'floor')}}"
+    xiaomi_vacuum_cleaner_last_cleaned:
+      friendly_name: Relative time since last cleaning ended
+      value_template: "{{relative_time(strptime(as_timestamp(state_attr('vacuum.xiaomi_vacuum_cleaner', 'clean_stop'))|timestamp_custom('%Y-%m-%d %H:%M:%S%z'), '%Y-%m-%d %H:%M:%S%z'))}}"
+    xiaomi_vacuum_cleaner_lifetime_cleaning_count:
+      friendly_name: 'Lifetime Cleaning Count'
+      value_template: "{{state_attr('vacuum.xiaomi_vacuum_cleaner', 'cleaning_count')}}"
+    xiaomi_vacuum_cleaner_filter_remaining:
+      friendly_name: '% Filter Remaining'
+      unit_of_measurement: '%'
+      value_template: "{{((state_attr('vacuum.xiaomi_vacuum_cleaner', 'filter_left') / 150) * 100) | round | int}}"
+    xiaomi_vacuum_cleaner_filter_hrs_remaining:
+      friendly_name: 'Filter Remaining Hours'
+      unit_of_measurement: 'hrs'
+      value_template: "{{state_attr('vacuum.xiaomi_vacuum_cleaner', 'filter_left')}}"
+    xiaomi_vacuum_cleaner_side_brush_remaining:
+      friendly_name: '% Side Brush Remaining'
+      unit_of_measurement: '%'
+      value_template: "{{((state_attr('vacuum.xiaomi_vacuum_cleaner', 'side_brush_left') / 200) * 100) | round | int}}"
+    xiaomi_vacuum_cleaner_side_brush_hrs_remaining:
+      friendly_name: 'Side Brush Remaining Hours'
+      unit_of_measurement: 'hrs'
+      value_template: "{{state_attr('vacuum.xiaomi_vacuum_cleaner', 'side_brush_left')}}"
+    xiaomi_vacuum_cleaner_main_brush_remaining:
+      friendly_name: '% Main Brush Remaining'
+      unit_of_measurement: '%'
+      value_template: "{{((state_attr('vacuum.xiaomi_vacuum_cleaner', 'main_brush_left') / 300) * 100) | round | int}}"
+    xiaomi_vacuum_cleaner_main_brush_hrs_remaining:
+      friendly_name: 'Main Brush Remaining Hours'
+      unit_of_measurement: 'hrs'
+      value_template: "{{state_attr('vacuum.xiaomi_vacuum_cleaner', 'main_brush_left')}}"
+    xiaomi_vacuum_cleaner_sensors_remaining:
+      friendly_name: '% Sensors Remaining'
+      unit_of_measurement: '%'
+      value_template: "{{((state_attr('vacuum.xiaomi_vacuum_cleaner', 'sensor_dirty_left') / 30) * 100) | round | int}}"
+    xiaomi_vacuum_cleaner_sensors_hrs_remaining:
+      friendly_name: 'Sensors Remaining Hours'
+      unit_of_measurement: 'hrs'
+      value_template: "{{state_attr('vacuum.xiaomi_vacuum_cleaner', 'sensor_dirty_left')}}"
+
+# Uptime sensor
+- platform: uptime
+  name: Uptime
+
+# External IP Address
+- platform: rest
+  resource: https://api.ipify.org/?format=json
+  name: External IP
+  value_template: '{{ value_json.ip }}'
+
+# Steam
+- platform: steam_online
+  api_key: !secret steam_api
+  accounts:
+    - !secret steam_user
+
+- platform: history_stats
+  name: Quarantine meter
+  entity_id: person.jean_paul
+  state: "home"
+  type: ratio
+  duration:
+    days: 14
+  end: "{{ now() }}"
+
+- platform: history_stats
+  name: Quarantine meter times left
+  entity_id: person.jean_paul
+  state: "home"
+  type: count
+  duration:
+    days: 14
+  end: "{{ now() }}"

@@ -1,0 +1,2 @@
+client_id: !secret media_player_spotify_clientid
+client_secret: !secret media_player_spotify_clientsecret

@@ -1,0 +1,35 @@
+- name: Home
+  latitude: !secret zone_home_latitude
+  longitude: !secret zone_home_longitude
+  radius: 60
+  icon: mdi:home
+
+- name: Office
+  latitude: !secret zone_office_latitude
+  longitude: !secret zone_office_longitude
+  radius: 60
+  icon: mdi:worker
+
+- name: Microsoft office
+  latitude: !secret zone_microsoft_office_latitude
+  longitude: !secret zone_microsoft_office_longitude
+  radius: 60
+  icon: mdi:worker
+
+# - name: Client
+#   latitude: !secret zone_client_latitude
+#   longitude: !secret zone_client_longitude
+#   radius: 60
+#   icon: mdi:briefcase
+
+- name: Parents
+  latitude: !secret zone_parents_latitude
+  longitude: !secret zone_parents_longitude
+  radius: 60
+  icon: mdi:home
+
+- name: Zandvoort
+  latitude: !secret zone_zandvoort_latitude
+  longitude: !secret zone_zandvoort_longitude
+  radius: 1200
+  icon: mdi:city

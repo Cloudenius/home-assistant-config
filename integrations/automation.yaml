@@ -1,0 +1,39 @@
+# Set log level
+- id: '342142314321423543'
+  alias: Log Level
+  trigger:
+    platform: state
+    entity_id: input_select.log_level
+  action:
+    service: logger.set_level
+    data_template:
+      homeassistant.components: '{{ trigger.to_state.state }}'
+  initial_state: 'off'
+
+# Let's Encrypt Renewal
+- id: letsencrypt-renewal
+  alias: Let's Encrypt Renewal
+  trigger:
+  - platform: time
+    at: 00:00:00
+  action:
+  - service: hassio.addon_restart
+    data:
+      addon: core_letsencrypt
+  initial_state: 'on'
+
+# Update Nissan Leaf info toggle
+- id: '1554209534901'
+  alias: Update Nissan Leaf info
+  trigger:
+  - entity_id: automation.update_nissan_leaf_info
+    platform: state
+    to: 'on'
+  condition: []
+  action:
+  - data:
+      vin: !secret leaf_vin
+    service: nissan_leaf.update
+  - data:
+      entity_id: automation.update_nissan_leaf_info
+    service: automation.turn_off

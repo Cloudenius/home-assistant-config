@@ -1,0 +1,36 @@
+ventilationsystem_low:
+  url: !secret ventilation_turn_on_low
+  username: !secret ventilation_user
+  password: !secret ventilation_pass
+ventilationsystem_medium:
+  url: !secret ventilation_turn_on_medium
+  username: !secret ventilation_user
+  password: !secret ventilation_pass
+ventilationsystem_hard:
+  url: !secret ventilation_turn_on_hard
+  username: !secret ventilation_user
+  password: !secret ventilation_pass
+ventilationsystem_medium_10mins:
+  url: !secret ventilation_turn_on_medium_for_10mins
+  username: !secret ventilation_user
+  password: !secret ventilation_pass
+ventilationsystem_medium_30mins:
+  url: !secret ventilation_turn_on_medium_for_30mins
+  username: !secret ventilation_user
+  password: !secret ventilation_pass
+ventilationsystem_medium_60mins:
+  url: !secret ventilation_turn_on_medium_for_60mins
+  username: !secret ventilation_user
+  password: !secret ventilation_pass
+ventilationsystem_hard_10mins:
+  url: !secret ventilation_turn_on_hard_for_10mins
+  username: !secret ventilation_user
+  password: !secret ventilation_pass
+ventilationsystem_hard_30mins:
+  url: !secret ventilation_turn_on_hard_for_30mins
+  username: !secret ventilation_user
+  password: !secret ventilation_pass
+ventilationsystem_hard_60mins:
+  url: !secret ventilation_turn_on_hard_for_60mins
+  username: !secret ventilation_user
+  password: !secret ventilation_pass

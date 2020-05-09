@@ -1,0 +1,16 @@
+sensor.since_last_boot_templated:
+  friendly_name: Since last boot
+binary_sensor.front_door:
+  icon: mdi:door
+sensor.leaf1jvra_charge:
+  friendly_name: Leaf Charge
+switch.leaf1jvra_charging_status:
+  friendly_name: Leaf Charging Status
+switch.leaf1jvra_climate_control:
+  friendly_name: Leaf Climate Control
+binary_sensor.leaf1jvra_plug_status:
+  friendly_name: Leaf Plug Status
+sensor.leaf1jvra_range:
+  friendly_name: Leaf Range
+sensor.leaf1jvra_range_ac:
+  friendly_name: Leaf Range (AC)
